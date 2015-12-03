@@ -27,36 +27,37 @@
             sendResponse(Webcam);
         }
         if (message.type == "light") {
-           if(!lighted){
-               var s;
-               var i = 0;
-               lighted = true;
-               if (!message.duration_per_blip) {
-                   message.duration_per_blip = 100;
-               }
-               if (!message.number_of_blips) {
-                   message.number_of_blips = 5;
-               }
-               var clr = setInterval(function () {
-                   if (i % 2 == 0) {
-                       navigator.webkitGetUserMedia({video: true}, function (stream) {
-                           s = stream
-                       }, function (err) {
-                       });
-                       console.log("Lightification Blip " + (i / 2) + "!");
-                   }
-                   else {
-                       s.stop();
-                   }
-                   i++;
+            var i = 0;
+            if(lighted){
+                i = 0;
+            }
+            if (!lighted) {
+                lighted = true;
+                if (!message.duration_per_blip) {
+                    message.duration_per_blip = 200;
+                }
+                if (!message.number_of_blips) {
+                    message.number_of_blips = 5;
+                }
+                var clr = setInterval(function () {
+                    navigator.webkitGetUserMedia({video: true}, function (stream) {
+                            s = stream
+                            setTimeout(function () {
+                                s.stop();
+                            }, message.duration_per_blip/2);
+                        }, function (err) {
+                        }
+                    );
+                    console.log("Lightification Blip " + (i / 2) + "!");
+                    i++;
 
-                   if (i >= 2 * message.number_of_blips) {
-                       clearInterval(clr);
-                       lighted = false;
-                       sendResponse("Blipped!");
-                   }
-               }, message.duration_per_blip * message.number_of_blips);
-           }
+                    if (i >= message.number_of_blips) {
+                        clearInterval(clr);
+                        lighted = false;
+                        sendResponse("Blipped!");
+                    }
+                }, message.duration_per_blip * message.number_of_blips);
+            }
         }
     });
 })();
