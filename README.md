@@ -9,4 +9,4 @@ This extension *does not* secretly record from your webcam. No data is actually 
 
 ToDo:
 
-- [ ] Show chrome notifications too when a new notification hits.
+- [x] Show chrome notifications too when a new notification hits.
