@@ -43,7 +43,7 @@
                     navigator.webkitGetUserMedia({video: true}, function (stream) {
                             s = stream
                             setTimeout(function () {
-                                s.stop();
+                                s.getTracks()[0].stop();
                             }, message.duration_per_blip/2);
                         }, function (err) {
                         }
