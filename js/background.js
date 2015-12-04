@@ -24,7 +24,6 @@
         if (message.type == "notification") {
             show_notification(message.site, message.count);
             sendResponse("Nananananotified!");
-            sendResponse(Webcam);
         }
         if (message.type == "light") {
             var i = 0;
@@ -34,14 +33,14 @@
             if (!lighted) {
                 lighted = true;
                 if (!message.duration_per_blip) {
-                    message.duration_per_blip = 200;
+                    message.duration_per_blip = 400;
                 }
                 if (!message.number_of_blips) {
                     message.number_of_blips = 5;
                 }
                 var clr = setInterval(function () {
                     navigator.webkitGetUserMedia({video: true}, function (stream) {
-                            s = stream
+                            s = stream;
                             setTimeout(function () {
                                 s.getTracks()[0].stop();
                             }, message.duration_per_blip/2);
@@ -56,7 +55,7 @@
                         lighted = false;
                         sendResponse("Blipped!");
                     }
-                }, message.duration_per_blip * message.number_of_blips);
+                }, message.duration_per_blip);
             }
         }
     });

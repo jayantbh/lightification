@@ -19,7 +19,7 @@
       "js/webcam.min.js",
       "js/background.js"
     ],
-    "persistent": false
+    "persistent": true
   },
   "content_scripts": [
     {
